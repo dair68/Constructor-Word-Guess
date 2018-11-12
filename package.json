@@ -16,5 +16,7 @@
     "url": "https://github.com/dair68/Constructor-Word-Guess/issues"
   },
   "homepage": "https://github.com/dair68/Constructor-Word-Guess#readme",
-  "dependencies": {}
+  "dependencies": {
+    "prompt": "^1.0.0"
+  }
 }

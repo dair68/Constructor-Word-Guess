@@ -5,7 +5,7 @@ function Word(word) {
     //ensuring word is a string
     console.assert(typeof word === "string", {
         word: word,
-        error: "word must be as string"
+        error: "word must be a string"
     });
 
     this.letters = [];
@@ -37,7 +37,9 @@ Word.prototype.guessLetter = function(letter) {
     }
 }
 
-var word = new Word("CAT");
-word.guessLetter('C');
-word.guessLetter('O');
-console.log(word.toString());
+// var word = new Word("CAT");
+// word.guessLetter('C');
+// word.guessLetter('O');
+// console.log(word.toString());
+
+module.exports = Word;

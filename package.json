@@ -1,0 +1,20 @@
+{
+  "name": "constructor-word-guess",
+  "version": "1.0.0",
+  "description": "A command-line version of hangman.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dair68/Constructor-Word-Guess.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dair68/Constructor-Word-Guess/issues"
+  },
+  "homepage": "https://github.com/dair68/Constructor-Word-Guess#readme",
+  "dependencies": {}
+}

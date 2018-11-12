@@ -14,39 +14,19 @@ function Letter(letter = 'E') {
     });
 
     this.letter = letter;
-    this.placeholder = '_';
+    this.placeholder = "\u2014"; //em dash
     this.guessed = false;
 }
 
-//prints letter to console if guessed correctly, otherwise displays placeholder
-//displays letter as however casing it is stored if display passed in as "default"
-//can specify display as "uppercase" or "lowercase" instead
-Letter.prototype.print = function (display = "default") {
-    //ensuring display parameter is valid input
-    var validDisplay = ["default", "uppercase", "lowercase"];
-    console.assert(validDisplay.includes(display), {
-        display: display,
-        error: "display can only be set to \'default\', \'uppercase\', or \'lowercase\'" 
-    });
-
+//returns the underlying character if already guessed, placeholder otherwise
+Letter.prototype.toString = function () {
     //letter guessed correctly
     if (this.guessed) {
-        var displayedLetter = this.letter;
-
-        //displaying in uppercase
-        if(display === "uppercase") {
-            displayedLetter = displayedLetter.toUpperCase();
-        }
-        //displaying in lowercase
-        else if(display === "lowercase") {
-            displayedLetter = displayedLetter.toLowerCase();
-        }
-        
-        console.log(displayedLetter);
+        return this.letter;
     }
     //letter not yet guessed
     else {
-        console.log(this.placeholder);
+        return this.placeholder;
     }
 }
 
@@ -58,6 +38,8 @@ Letter.prototype.guess = function (letter) {
     }
 }
 
-var e = new Letter('E');
-e.guess('e');
-e.print();
+// var e = new Letter('E');
+// e.guess('f');
+// console.log(e.toString());
+
+module.exports = Letter;

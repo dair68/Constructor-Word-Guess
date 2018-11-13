@@ -15,6 +15,8 @@ function Word(word) {
         var letter = new Letter(word[i]);
         this.letters.push(letter);
     }
+
+    this.string = word;
 }
 
 //returns string representation of word, based on correctly guessed letters

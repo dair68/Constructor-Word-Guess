@@ -1,54 +1,7 @@
-//list obtained from https://www.prdaily.com/Main/Articles/20880.aspx
-var wordlist = [
-    "AWKWARD",
-    "BAGPIPES",
-    "BANJO",
-    "BUNGLER",
-    "CROQUET",
-    "CRYPT",
-    "DWARVES",
-    "FERVID",
-    "FISHHOOK",
-    "FJORD",
-    "GAZEBO",
-    "GYPSY",
-    "HAIKU",
-    "HAPHAZARD",
-    "HYPHEN",
-    "IVORY",
-    "JAZZY",
-    "JIFFY",
-    "JINX",
-    "JUKEBOX",
-    "KAYAK",
-    "KIOSK",
-    "KLUTZ",
-    "MEMENTO",
-    "MYSTIFY",
-    "NUMBSKULL",
-    "OSTRACIZE",
-    "OXYGEN",
-    "PAJAMA",
-    "PHLEGM",
-    "PIXEL",    
-    "POLKA",
-    "QUAD",
-    "QUIP",
-    "RHYTHMIC",
-    "ROGUE",
-    "SPHINX",
-    "SQUAWK",
-    "SWIVEL",
-    "TOADY",
-    "TWELFTH",
-    "UNZIP",
-    "WAXY",
-    "WILDEBEEST",
-    "YACHT",
-    "ZEALOUS",
-    "ZIGZAG",
-    "ZIPPY",
-    "ZOMBIE"
-];
+var fs = require("fs");
 
+var list = fs.readFileSync("words.txt", "utf8");
+//console.log(list);
+var wordlist = list.split("\r\n");
+//console.log(wordlist);
 module.exports = wordlist;

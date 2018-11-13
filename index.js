@@ -1,6 +1,7 @@
 var wordlist = require("./wordlist.js");
 var Word = require("./word.js");
 var prompt = require("prompt");
+var colors = require("colors/safe");
 
 //console.log(wordlist);
 
@@ -8,15 +9,22 @@ var currentWord;
 var guesses;
 var guessedLetters;
 
+//formatting prompt
+prompt.message = "";
+prompt.delimiter = "";
+
 var schema = {
     properties: {
-      letter: {
-        pattern: /^[a-zA-Z]$/,
-        message: 'Must input alphabetic character.',
-        required: true
-      },
+        letter: {
+            description: colors.white("Guess a letter:"),
+            pattern: /^[a-zA-Z]$/,
+            message: 'Must input alphabetic character.',
+            required: true
+        },
     }
-  };
+};
+
+prompt.start();
 
 //randomly selects hangman word and sets guesses to 10
 function nextRound() {
@@ -27,9 +35,6 @@ function nextRound() {
 
     guesses = 10;
     guessedLetters = [];
-
-    //setting up prompt
-    prompt.start();
 }
 
 //checks if the entirety of a word has been guessed
@@ -47,7 +52,7 @@ function startGame() {
 function play() {
     //round in play
     if (!wordGuessed() && guesses > 0) {
-        console.log("\n" + guesses + " guesses remaining");
+        console.log(guesses + " guesses remaining");
         console.log(currentWord.toString());
         //asking user for a letter
         prompt.get(schema, function (err, result) {
@@ -60,36 +65,36 @@ function play() {
             var letter = result.letter;
 
             //letter not already guessed
-            if(!guessedLetters.includes(letter)) {
+            if (!guessedLetters.includes(letter)) {
                 currentWord.guessLetter(letter);
                 guessedLetters.push(letter);
 
                 //letter guessed incorrectly
-                if(!currentWord.string.includes(letter)) {
-                    console.log("Incorrect");
+                if (!currentWord.string.includes(letter)) {
+                    console.log(colors.red("\nIncorrect"));
                     guesses--;
                 }
                 //letter guessed correctly
                 else {
-                    console.log("Correct");
+                    console.log(colors.green("\nCorrect"));
                 }
             }
             //letter already guessed
             else {
-                console.log("You already guessed that");
+                console.log(colors.cyan("\nYou already guessed that"));
             }
-            
+
             play();
         });
     }
     //word guessed
-    else if(wordGuessed()) {
-        console.log("\n"+currentWord.toString());
+    else if (wordGuessed()) {
+        console.log(currentWord.toString());
         console.log("You got it right! Next word!");
     }
     //out of guesses
-    else if(guesses === 0) {
-        console.log("\nOut of guesses. The word was: ");
+    else if (guesses === 0) {
+        console.log("Out of guesses. The word was: ");
         console.log(currentWord.string);
     }
 }

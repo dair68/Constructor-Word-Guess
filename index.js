@@ -8,6 +8,16 @@ var currentWord;
 var guesses;
 var guessedLetters;
 
+var schema = {
+    properties: {
+      letter: {
+        pattern: /^[a-zA-Z]$/,
+        message: 'Must input alphabetic character.',
+        required: true
+      },
+    }
+  };
+
 //randomly selects hangman word and sets guesses to 10
 function nextRound() {
     var randIndex = Math.floor(Math.random() * wordlist.length);
@@ -24,8 +34,7 @@ function nextRound() {
 
 //checks if the entirety of a word has been guessed
 var wordGuessed = function () {
-    var currentString = currentWord.toString();
-    return !currentString.includes("\u2014");
+    return currentWord.string === currentWord.toString();
 }
 
 //starts game of hangman
@@ -41,7 +50,7 @@ function play() {
         console.log("\n" + guesses + " guesses remaining");
         console.log(currentWord.toString());
         //asking user for a letter
-        prompt.get(["letter"], function (err, result) {
+        prompt.get(schema, function (err, result) {
             //error occurs
             if (err) {
                 console.log(err);
@@ -52,12 +61,11 @@ function play() {
 
             //letter not already guessed
             if(!guessedLetters.includes(letter)) {
-                var previousWord = currentWord.toString();
                 currentWord.guessLetter(letter);
                 guessedLetters.push(letter);
 
                 //letter guessed incorrectly
-                if(previousWord === currentWord.toString()) {
+                if(!currentWord.string.includes(letter)) {
                     console.log("Incorrect");
                     guesses--;
                 }
@@ -76,7 +84,7 @@ function play() {
     }
     //word guessed
     else if(wordGuessed()) {
-        console.log(currentWord.toString());
+        console.log("\n"+currentWord.toString());
         console.log("You got it right! Next word!");
     }
     //out of guesses

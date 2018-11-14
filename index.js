@@ -24,6 +24,17 @@ var schema = {
     }
 };
 
+var playAgain = {
+    properties: {
+        play: {
+            description: colors.magenta("Play again?(y/n)"),
+            pattern: /^[yn]$/,
+            message: "Please input y or n.",
+            required: true
+        }
+    }
+}
+
 prompt.start();
 
 //randomly selects hangman word and sets guesses to 10
@@ -52,8 +63,9 @@ function startGame() {
 function play() {
     //round in play
     if (!wordGuessed() && guesses > 0) {
-        console.log(guesses + " guesses remaining");
+        console.log(guesses + " guesses left");
         console.log(currentWord.toString());
+        console.log("Wrong: " + guessedLetters.join(","));
         //asking user for a letter
         prompt.get(schema, function (err, result) {
             //error occurs
@@ -67,16 +79,16 @@ function play() {
             //letter not already guessed
             if (!guessedLetters.includes(letter)) {
                 currentWord.guessLetter(letter);
-                guessedLetters.push(letter);
 
                 //letter guessed incorrectly
                 if (!currentWord.string.includes(letter)) {
-                    console.log(colors.red("\nIncorrect"));
+                    console.log(colors.red("\nINCORRECT"));
+                    guessedLetters.push(letter);
                     guesses--;
                 }
                 //letter guessed correctly
                 else {
-                    console.log(colors.green("\nCorrect"));
+                    console.log(colors.green("\nCORRECT!"));
                 }
             }
             //letter already guessed
@@ -87,15 +99,38 @@ function play() {
             play();
         });
     }
-    //word guessed
-    else if (wordGuessed()) {
-        console.log(currentWord.toString());
-        console.log("You got it right! Next word!");
-    }
-    //out of guesses
-    else if (guesses === 0) {
-        console.log("Out of guesses. The word was: ");
-        console.log(currentWord.string);
+    //game over
+    else {
+        //word guessed
+        if (wordGuessed()) {
+            console.log(currentWord.toString());
+            console.log(colors.yellow("You got it right!"));
+        }
+        //out of guesses
+        else if (guesses === 0) {
+            console.log(colors.yellow("Out of guesses. The word was: "));
+            console.log(currentWord.string);
+        }
+
+        //asking user if they want to play again
+        prompt.get(playAgain, function(err, result) {
+            //error occurred
+            if(err) {
+                console.log(err);
+            }
+
+            //play again
+            if(result.play === 'y') {
+                //console.log("Let's play again!");
+                console.log("\n");
+                nextRound();
+                play();
+            }
+            //quitting game
+            else if (result.play === 'n') {
+                console.log(colors.magenta("Thanks for playing!"));
+            }
+        });
     }
 }
 

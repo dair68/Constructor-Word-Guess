@@ -2,6 +2,7 @@ var wordlist = require("./wordlist.js");
 var Word = require("./word.js");
 var prompt = require("prompt");
 var colors = require("colors/safe");
+var printHangman = require("./hangman.js");
 
 //console.log(wordlist);
 
@@ -61,6 +62,7 @@ function startGame() {
 
 //plays a round of hangman
 function play() {
+    printHangman(guesses);
     //round in play
     if (!wordGuessed() && guesses > 0) {
         console.log(guesses + " guesses left");
@@ -74,10 +76,10 @@ function play() {
             }
 
             //console.log(result);
-            var letter = result.letter;
+            var letter = result.letter.toUpperCase();
 
             //letter not already guessed
-            if (!guessedLetters.includes(letter)) {
+            if (!guessedLetters.includes(letter) && !currentWord.toString().includes(letter)) {
                 currentWord.guessLetter(letter);
 
                 //letter guessed incorrectly

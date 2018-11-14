@@ -1,7 +1,6 @@
 var fs = require("fs");
 
+//words randomly generated from https://www.randomlists.com/random-words
 var list = fs.readFileSync("words.txt", "utf8");
-//console.log(list);
 var wordlist = list.split("\r\n");
-//console.log(wordlist);
 module.exports = wordlist;

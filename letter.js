@@ -13,7 +13,7 @@ function Letter(letter = 'E') {
         error: "letter must be length 1"
     });
 
-    this.letter = letter;
+    this.char = letter;
     this.placeholder = "\u2014"; //em dash
     this.guessed = false;
 }
@@ -22,7 +22,7 @@ function Letter(letter = 'E') {
 Letter.prototype.toString = function () {
     //letter guessed correctly
     if (this.guessed) {
-        return this.letter;
+        return this.char;
     }
     //letter not yet guessed
     else {
@@ -33,13 +33,13 @@ Letter.prototype.toString = function () {
 //checks if a character matches Letter object. Updates the guessed property if so
 Letter.prototype.guess = function (letter) {
     //letter guessed correctly
-    if (letter.toLowerCase() === this.letter || letter.toUpperCase() === this.letter) {
+    if (letter.toLowerCase() === this.char || letter.toUpperCase() === this.char) {
         this.guessed = true;
     }
 }
 
 // var e = new Letter('E');
-// e.guess('f');
+// e.guess('e');
 // console.log(e.toString());
 
 module.exports = Letter;
